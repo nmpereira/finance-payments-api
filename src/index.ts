@@ -1,11 +1,19 @@
-import express from "express";
-const app = express();
-const port = 3000;
+import express, { Application, Request, Response } from "express";
+import financeRoutes from "./routes/financeRoutes";
 
-app.get("/", (_req, res) => {
-    res.send("Hello from Express + TypeScript!");
+const PORT = process.env.PORT ?? "3000";
+
+const app: Application = express();
+
+app.use(express.json());
+
+app.get("/health", (_req: Request, res: Response) => {
+    res.status(200).json({ message: "OK", timestamp: new Date().toISOString() });
 });
 
-app.listen(port, () => {
-    console.log(`Server running at http://localhost:${port}`);
+// Routes
+app.use("/api/v1", financeRoutes);
+
+app.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
 });
