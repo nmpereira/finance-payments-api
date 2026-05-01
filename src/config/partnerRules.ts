@@ -1,4 +1,4 @@
-import { PartnerRuleSet } from "../types";
+import { PartnerRuleSet } from "../types/rules";
 
 /**
  * In a real system, this would come from a database or external config.
@@ -47,5 +47,10 @@ export function getPartnerRuleSet(
   partnerId: string
 ): PartnerRuleSet | undefined {
   return partnerRuleSets.find((set) => set.partnerId === partnerId);
+}
+
+// For testing purposes ONLY
+export function getAllPartnerRuleSets(): PartnerRuleSet[] {
+  return partnerRuleSets;
 }
 

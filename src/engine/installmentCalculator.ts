@@ -1,4 +1,5 @@
-import { InstallmentPlan, PaymentFrequency } from "../types";
+import { InstallmentPlan } from "../types/installments";
+import { PaymentFrequency } from "../types/policy";
 
 /**
  * Simple installment calculator:

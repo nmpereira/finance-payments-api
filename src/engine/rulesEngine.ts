@@ -1,10 +1,6 @@
-import {
-  EvaluationError,
-  FinanceDecisionRequest,
-  PartnerRuleSet,
-  RuleCondition,
-  RulesEvaluationResult
-} from "../types";
+import { EvaluationError, RulesEvaluationResult } from "../types/evaluation";
+import { FinanceDecisionRequest } from "../types/request";
+import { PartnerRuleSet, RuleCondition } from "../types/rules";
 
 function resolveFieldValue(
   field: string,
@@ -110,12 +106,12 @@ export function evaluateRules(
       if (rule.errorCode && rule.errorMessage) {
         errors.push({
           code: rule.errorCode,
-          message: rule.errorMessage
+          message: rule.errorMessage,
         });
       } else {
         errors.push({
           code: rule.id,
-          message: rule.description
+          message: rule.description,
         });
       }
     }
@@ -123,6 +119,6 @@ export function evaluateRules(
 
   return {
     financeable: errors.length === 0,
-    errors
+    errors,
   };
 }

@@ -1,9 +1,5 @@
-import express, {
-  Application,
-  Request,
-  Response,
-  NextFunction
-} from "express";
+import express, { Application, Request, Response } from "express";
+import { errorHandler } from "./middleware/errorHandler";
 import financeRoutes from "./routes/financeRoutes";
 
 const PORT = process.env.PORT ?? "3000";
@@ -22,21 +18,7 @@ app.get("/health", (_req: Request, res: Response) => {
 
 app.use("/api/v1", financeRoutes);
 
-app.use(
-  (err: unknown, _req: Request, res: Response, _next: NextFunction) => {
-    console.error("Unhandled error:", err);
-
-    res.status(500).json({
-      financeable: false,
-      errors: [
-        {
-          code: "INTERNAL_SERVER_ERROR",
-          message: "An unexpected error occurred."
-        }
-      ]
-    });
-  }
-);
+app.use(errorHandler);
 
 app.listen(parseInt(PORT, 10), () => {
   console.log(`Finance rules API listening on http://localhost:${PORT}`);
