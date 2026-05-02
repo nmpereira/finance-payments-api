@@ -10,6 +10,13 @@ function isValidPaymentFrequency(value: unknown): value is PaymentFrequency {
   return value === "MONTHLY" || value === "QUARTERLY" || value === "ANNUALLY";
 }
 
+/**
+ * Checks if the request is a valid shape.
+ * - partnerId (string)
+ * - amount (number)
+ * - policy (object)
+ * - policy.attributes (object)
+ */
 function isShapeValid(raw: any): boolean {
   return (
     !!raw &&
