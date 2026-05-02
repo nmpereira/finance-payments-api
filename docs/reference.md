@@ -133,14 +133,19 @@ Runtime dependency: **express** only; other packages are dev/test tooling.
 ---
 
 ## LLMs
+I used AI/LLMs both in research phase and during development.
 
-If you used an LLM during development, document a few representative prompts. Examples:
+For research, I knew that the solution would have to be done in memory (since no database/persistence was needed and partners would need to be able to configure the rules without a code deploy). I took my assumptions and asked AI:
+1. Here's the requirements of this project ...., how would I implement a in memory/ on the fly decision engine?
+2. Here's my solution....., can you tell me if there's a better approach or if I'm missing something?
 
-1. “Review this Express + TypeScript rules engine: should DENY rules short-circuit or collect all errors?”
-2. “Write Jest integration tests for POST /finance/decision that cover partner defaults and rounding on the last installment.”
-3. “List edge cases for quarterly installments when termMonths is not divisible by 3.”
 
-Replace or extend with your own prompts.
+For the coding phase, I used AI to help me with the following:
+
+1. I would like to add a rules engine that parses rules from a JSON file and evaluates them against a request. Help me implement it.
+2. I would like to come up with test cases and sample requests/responses for the rules engine.
+3. Help me implement a complete test suite with unit and integration tests.
+4. Based on my solution, help me document the architecture, API and code structure.
 
 ---
 
