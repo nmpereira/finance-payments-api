@@ -15,9 +15,9 @@ export function requestLogger(
     const durationMs = performance.now() - start;
     const line = [
       req.method,
-      req.originalUrl ?? req.url,
       res.statusCode,
-      `${durationMs.toFixed(2)}ms`
+      `${durationMs.toFixed(2)}ms`,
+      req.originalUrl ?? req.url,
     ].join(" ");
     console.log(line);
   });

@@ -1,4 +1,5 @@
 import express, { Application, Request, Response } from "express";
+import { authMiddleware } from "./middleware/authMiddleware";
 import { errorHandler } from "./middleware/errorHandler";
 import { requestLogger } from "./middleware/requestLogger";
 import adminRoutes from "./routes/adminRoutes";
@@ -19,7 +20,7 @@ app.get("/health", (_req: Request, res: Response) => {
   });
 });
 
-app.use("/api/v1", adminRoutes);
+app.use("/api/v1", authMiddleware, adminRoutes);
 app.use("/api/v1", financeRoutes);
 
 app.use(errorHandler);
