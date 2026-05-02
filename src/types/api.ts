@@ -10,7 +10,4 @@ export interface FinanceDecisionResponse {
   financeable: boolean;
   errors: EvaluationError[];
   installments?: InstallmentPlan;
-  metrics?: {
-    evaluationTimeMs: number;
-  };
 }

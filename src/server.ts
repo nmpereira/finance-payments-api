@@ -1,11 +1,13 @@
 import express, { Application, Request, Response } from "express";
 import { errorHandler } from "./middleware/errorHandler";
+import { requestLogger } from "./middleware/requestLogger";
 import financeRoutes from "./routes/financeRoutes";
 
 const PORT = process.env.PORT ?? "3000";
 
 const app: Application = express();
 
+app.use(requestLogger);
 app.use(express.json());
 
 app.get("/health", (_req: Request, res: Response) => {

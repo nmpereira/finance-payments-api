@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { performance } from "node:perf_hooks";
 import { getAllPartnerRuleSets } from "../config/partnerRules";
 import { makeFinanceDecision } from "../services/financeDecisionService";
 import { parseFinanceDecisionRequest } from "../validation/financeDecisionRequest";
@@ -9,8 +8,6 @@ export function postFinanceDecision(
   res: Response,
   next: NextFunction
 ): void {
-  const start = performance.now();
-
   try {
     const parsed = parseFinanceDecisionRequest(req.body);
 
@@ -37,19 +34,7 @@ export function postFinanceDecision(
       return;
     }
 
-    const durationMs = performance.now() - start;
-
-    console.log(
-      `Finance decision for partner=${parsed.value.partnerId} ` +
-        `took ${durationMs.toFixed(2)}ms`
-    );
-
-    res.json({
-      ...outcome.response,
-      metrics: {
-        evaluationTimeMs: durationMs
-      }
-    });
+    res.json(outcome.response);
   } catch (error) {
     next(error);
   }
