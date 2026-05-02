@@ -97,7 +97,7 @@ Partner configuration is an **in-memory map** in `src/config/partnerRules.ts`—
 
 ### Auth
 
-- **`authMiddleware`** is a no-op for this POC. Production would use API keys, JWT, or mTLS.
+- **`authMiddleware`** is a non-functional placeholder for this POC. Production would use API keys or JWT.
 
 ---
 
