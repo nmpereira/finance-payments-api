@@ -1,6 +1,7 @@
 import express, { Application, Request, Response } from "express";
 import { errorHandler } from "./middleware/errorHandler";
 import { requestLogger } from "./middleware/requestLogger";
+import adminRoutes from "./routes/adminRoutes";
 import financeRoutes from "./routes/financeRoutes";
 
 const PORT = process.env.PORT ?? "3000";
@@ -18,6 +19,7 @@ app.get("/health", (_req: Request, res: Response) => {
   });
 });
 
+app.use("/api/v1", adminRoutes);
 app.use("/api/v1", financeRoutes);
 
 app.use(errorHandler);

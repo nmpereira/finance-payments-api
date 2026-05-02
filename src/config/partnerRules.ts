@@ -1,56 +1,30 @@
 import { PartnerRuleSet } from "../types/rules";
+import { defaultPartnerRuleSet } from "./defaultRuleSet";
 
 /**
- * In a real system, this would come from a database or external config.
- * For this POC, it's an in-memory array.
+ * In-memory store: NOT persisted across restarts.
+ * Seeded with a default rule set for the POC demo.
  */
-const partnerRuleSets: PartnerRuleSet[] = [
-  {
-    partnerId: "partner-123",
-    defaults: {
-      termMonths: 12,
-      paymentFrequency: "MONTHLY"
-    },
-    rules: [
-      {
-        id: "deny_google_wallet_over_100k_for_hotels",
-        description:
-          "Deny Google Wallet payments over 100k for hotel business type",
-        when: [
-          {
-            field: "policy.attributes.paymentMethod",
-            operator: "EQ",
-            value: "GOOGLE_WALLET"
-          },
-          {
-            field: "policy.attributes.businessType",
-            operator: "EQ",
-            value: "hotel"
-          },
-          {
-            field: "amount",
-            operator: "GT",
-            value: 100000
-          }
-        ],
-        effect: "DENY",
-        errorCode: "MAX_AMOUNT_EXCEEDED",
-        errorMessage:
-          "Google Wallet payments over 100000 are not financeable " +
-          "for hotel policies."
-      }
-    ]
-  }
-];
+const partnerRuleSets = new Map<string, PartnerRuleSet>();
+
+
+
+partnerRuleSets.set(defaultPartnerRuleSet.partnerId, defaultPartnerRuleSet);
 
 export function getPartnerRuleSet(
   partnerId: string
 ): PartnerRuleSet | undefined {
-  return partnerRuleSets.find((set) => set.partnerId === partnerId);
+  return partnerRuleSets.get(partnerId);
 }
 
-// For testing purposes ONLY
-export function getAllPartnerRuleSets(): PartnerRuleSet[] {
-  return partnerRuleSets;
+export function upsertPartnerRuleSet(ruleSet: PartnerRuleSet): void {
+  partnerRuleSets.set(ruleSet.partnerId, ruleSet);
 }
 
+export function deletePartnerRuleSet(partnerId: string): void {
+  partnerRuleSets.delete(partnerId);
+}
+
+export function listPartnerRuleSets(): PartnerRuleSet[] {
+  return Array.from(partnerRuleSets.values());
+}

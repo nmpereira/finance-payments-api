@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response } from "express";
-import { getAllPartnerRuleSets } from "../config/partnerRules";
 import { makeFinanceDecision } from "../services/financeDecisionService";
 import { parseFinanceDecisionRequest } from "../validation/financeDecisionRequest";
 
@@ -38,8 +37,4 @@ export function postFinanceDecision(
   } catch (error) {
     next(error);
   }
-}
-
-export function getPartnerRules(_req: Request, res: Response): void {
-  res.status(200).json(getAllPartnerRuleSets());
 }
