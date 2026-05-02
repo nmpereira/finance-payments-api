@@ -9,8 +9,8 @@ Built with **Node.js**, **Express 5**, and **TypeScript**.
 | Doc | Contents |
 |-----|----------|
 | [docs/architecture.md](docs/architecture.md) | Component diagram (Mermaid) and request flows |
-| [docs/reference.md](docs/reference.md) | API examples, assumptions, configurability limits, dependencies, LLMs, scripts, project layout |
-| [docs/openapi.yaml](docs/openapi.yaml) | OpenAPI 3 description |
+| [docs/reference.md](docs/reference.md) | Endpoints, fields, assumptions, limits, dependencies, scripts, layout |
+| [docs/examples.md](docs/examples.md) | Copy/paste request bodies and expected responses |
 
 ## Quick start
 
@@ -34,4 +34,4 @@ Run **`npm run build`** and **`npm test`** before submitting. Other scripts: `np
 | `PUT` | `/api/v1/partners/:partnerId/rules` | Upsert rule set |
 | `DELETE` | `/api/v1/partners/:partnerId/rules` | Remove rule set |
 
-Partner rules and defaults live **in memory** (seeded on startup; not persisted across restarts). See [reference](docs/reference.md) for request fields, JSON examples, and responses.
+Partner rules and defaults live **in memory** (seeded on startup; not persisted across restarts). See [reference](docs/reference.md) for fields and behavior; [examples](docs/examples.md) for JSON you can paste into requests.
