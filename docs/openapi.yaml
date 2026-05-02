@@ -13,7 +13,7 @@ servers:
 paths:
   /health:
     get:
-      summary: Liveness probe
+      summary: Health check
       operationId: health
       responses:
         "200":

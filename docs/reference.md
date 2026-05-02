@@ -20,7 +20,7 @@ Base path: `/api/v1` for protected routes. JSON bodies use `Content-Type: applic
 
 | Method | Path | Description |
 |--------|------|-------------|
-| `GET` | `/health` | Liveness: status, timestamp, uptime (no `/api/v1` prefix) |
+| `GET` | `/health` | Health check: status, timestamp, uptime (no `/api/v1` prefix) |
 | `POST` | `/api/v1/finance/decision` | Evaluate a finance decision |
 | `GET` | `/api/v1/partners` | List all partner rule sets |
 | `GET` | `/api/v1/partners/:partnerId/rules` | Get one partner’s rule set |

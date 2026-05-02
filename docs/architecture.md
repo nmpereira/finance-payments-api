@@ -6,7 +6,6 @@ flowchart TB
     Agency[B2B_API_consumer]
   end
   subgraph express [Express_app]
-    RL[requestLogger]
     AM[authMiddleware]
     HR[health_route]
     FR[finance_routes]
@@ -26,8 +25,7 @@ flowchart TB
     PR[partnerRules_Map]
     SEED[defaultRuleSet_seed]
   end
-  Agency --> RL
-  RL --> AM
+  Agency --> AM
   AM --> HR
   AM --> FR
   AM --> AR
@@ -42,6 +40,6 @@ flowchart TB
   SEED --> PR
 ```
 
-- **HTTP**: `requestLogger` records each request duration in milliseconds on the console when the response finishes. `authMiddleware` is a no-op placeholder for this POC.
+- **HTTP**: `authMiddleware` is a no-op placeholder for this POC.
 - **Finance flow**: Validate JSON → load partner rule set → evaluate DENY rules → if financeable, compute installments (defaults: request overrides, then partner `defaults`, then 12 months + `MONTHLY`).
 - **Admin flow**: CRUD partner rule sets into the in-memory map only (no database).

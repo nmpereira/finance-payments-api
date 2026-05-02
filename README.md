@@ -19,7 +19,7 @@ npm install
 npm run dev
 ```
 
-Server: `http://localhost:3000` unless **`PORT`** is set. Each request is logged with duration in **milliseconds** on the console.
+Server: `http://localhost:3000` unless **`PORT`** is set.
 
 Run **`npm run build`** and **`npm test`** before submitting. Other scripts: `npm start`, `npm run typecheck`.
 
@@ -27,7 +27,7 @@ Run **`npm run build`** and **`npm test`** before submitting. Other scripts: `np
 
 | Method | Path | Description |
 |--------|------|-------------|
-| `GET` | `/health` | Liveness |
+| `GET` | `/health` | Health check |
 | `POST` | `/api/v1/finance/decision` | Financing decision + installments when eligible |
 | `GET` | `/api/v1/partners` | List partner rule sets |
 | `GET` | `/api/v1/partners/:partnerId/rules` | Get one rule set |
