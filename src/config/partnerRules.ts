@@ -7,9 +7,10 @@ import { defaultPartnerRuleSet } from "./defaultRuleSet";
  */
 const partnerRuleSets = new Map<string, PartnerRuleSet>();
 
-
-
-partnerRuleSets.set(defaultPartnerRuleSet.partnerId, defaultPartnerRuleSet);
+// Seed the in-memory store with the default rule set
+for (const ruleSet of defaultPartnerRuleSet) {
+  partnerRuleSets.set(ruleSet.partnerId, ruleSet);
+}
 
 export function getPartnerRuleSet(
   partnerId: string
