@@ -193,6 +193,81 @@ Rule: Google Wallet + hotel + amount **>** `100000` → not financeable.
 
 ---
 
+### Finance decision — using `acme-corp` rules (after upsert)
+
+Run **Upsert partner rules** for `acme-corp` first (same process / session) so the partner exists. The upsert example installs a single DENY rule: amounts **greater than** `250000` are rejected.
+
+#### Approved — amount under the limit
+
+**POST** `/api/v1/finance/decision`
+
+**Request body**
+
+```json
+{
+  "partnerId": "acme-corp",
+  "amount": 1200,
+  "policy": {
+    "policyId": "ACM-001",
+    "attributes": {}
+  }
+}
+```
+
+**Expected response** — **200 OK**
+
+```json
+{
+  "financeable": true,
+  "errors": [],
+  "installments": {
+    "termMonths": 12,
+    "paymentFrequency": "MONTHLY",
+    "numberOfPayments": 12,
+    "payments": [
+      { "sequence": 1, "amount": 100 },
+      { "sequence": 2, "amount": 100 },
+      { "sequence": 3, "amount": 100 }
+    ]
+  }
+}
+```
+
+The `payments` array has 12 entries of `100`; the sum equals `1200`.
+
+#### Denied — amount over the limit
+
+**POST** `/api/v1/finance/decision`
+
+**Request body**
+
+```json
+{
+  "partnerId": "acme-corp",
+  "amount": 300000,
+  "policy": {
+    "policyId": "ACM-002",
+    "attributes": {}
+  }
+}
+```
+
+**Expected response** — **200 OK** (`financeable` false)
+
+```json
+{
+  "financeable": false,
+  "errors": [
+    {
+      "code": "MAX_AMOUNT",
+      "message": "Maximum financed amount is 250000"
+    }
+  ]
+}
+```
+
+---
+
 ### Finance decision — quarterly frequency override
 
 Same seeded partner `partner-123`; request overrides term and frequency for installment math.
