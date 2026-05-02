@@ -20,8 +20,9 @@ app.get("/health", (_req: Request, res: Response) => {
   });
 });
 
+// Protected routes
 app.use("/api/v1", authMiddleware, adminRoutes);
-app.use("/api/v1", financeRoutes);
+app.use("/api/v1", authMiddleware, financeRoutes);
 
 app.use(errorHandler);
 

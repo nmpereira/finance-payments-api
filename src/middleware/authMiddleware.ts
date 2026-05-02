@@ -9,5 +9,6 @@ export function authMiddleware(
   _res: Response,
   next: NextFunction
 ): void {
+  // Implement auth logic
   next();
 }
