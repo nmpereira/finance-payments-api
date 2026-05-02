@@ -1,7 +1,7 @@
 {
   "name": "finance-payments-api",
   "version": "1.0.0",
-  "description": "",
+  "description": "Partner-configurable financing eligibility API (Express, TypeScript)",
   "main": "index.js",
   "scripts": {
     "dev": "tsx watch src/server.ts",
