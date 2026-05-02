@@ -1,6 +1,12 @@
 import { EvaluationError, RulesEvaluationResult } from "../types/evaluation";
 import { FinanceDecisionRequest } from "../types/request";
-import { PartnerRuleSet, RuleCondition } from "../types/rules";
+import { Operator, PartnerRuleSet, RuleCondition } from "../types/rules";
+
+/** Accept `operator` (typed rules) or `op` (common JSON shorthand from clients). */
+function conditionOperator(condition: RuleCondition): Operator | undefined {
+  const raw = condition as RuleCondition & { op?: Operator };
+  return raw.operator ?? raw.op;
+}
 
 function resolveFieldValue(
   field: string,
@@ -84,7 +90,12 @@ function evaluateCondition(
     return false;
   }
 
-  return compare(condition.operator, actual, condition.value);
+  const op = conditionOperator(condition);
+  if (op === undefined) {
+    return false;
+  }
+
+  return compare(op, actual, condition.value);
 }
 
 export function evaluateRules(
